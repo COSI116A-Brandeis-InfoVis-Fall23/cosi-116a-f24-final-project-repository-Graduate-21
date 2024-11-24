@@ -5,7 +5,8 @@ This template will help you get started with your project. Please look through a
 
 ## The GitHub Pages Website
 
-Make sure you publish your project to github pages, and put the URL here: 
+Make sure you publish your project to github pages, and put the URL here:  https://github.com/COSI116A-Brandeis-InfoVis-Fall23/cosi-116a-f24-final-project-repository-Graduate-21
+
 
 ### Github Pages
 
@@ -61,7 +62,7 @@ Each folder has an explanatory `README.md` file
 * `js` will contain all JavaScript files you write.
 
   * `visualization.js` is the main code that builds all your visualizations. Each visualization should be built following the [Reusable Chart model](https://bost.ocks.org/mike/chart/)
-  
+
 * `lib` will contain any JavaScript library you use. It currently includes D3.
 
 ## Workflow
@@ -85,4 +86,3 @@ Make sure to check these aspects of your work, which are important for every sub
 * Your visualization works as required:
     * Styles are consistent across views.
     * None of the visualizations change size or move on the screen as you interact with them.
-    
