@@ -1,0 +1,102 @@
+[
+  {
+    "source": "C++",
+    "secs": 25.15,
+    "mem": 19496,
+    "cpu secs": 25.15,
+    "cpu_1_load": "71%",
+    "cpu_2_load": "29%",
+    "cpu_3_load": "0%",
+    "cpu_4_load": "0%"
+  },
+  {
+    "source": "Swift",
+    "secs": 25.59,
+    "mem": 19492,
+    "cpu secs": 25.59,
+    "cpu_1_load": "0%",
+    "cpu_2_load": "20%",
+    "cpu_3_load": "40%",
+    "cpu_4_load": "40%"
+  },
+  {
+    "source": "Java",
+    "secs": 27.67,
+    "mem": 45844,
+    "cpu secs": 27.79,
+    "cpu_1_load": "31%",
+    "cpu_2_load": "68%",
+    "cpu_3_load": "0%",
+    "cpu_4_load": "0%"
+  },
+  {
+    "source": "Go",
+    "secs": 26.68,
+    "mem": 19440,
+    "cpu secs": 26.74,
+    "cpu_1_load": "100%",
+    "cpu_2_load": "0%",
+    "cpu_3_load": "0%",
+    "cpu_4_load": "0%"
+  },
+  {
+    "source": "Node.js",
+    "secs": 72.49,
+    "mem": 56116,
+    "cpu secs": 72.52,
+    "cpu_1_load": "56%",
+    "cpu_2_load": "32%",
+    "cpu_3_load": "0%",
+    "cpu_4_load": "11%"
+  },
+  {
+    "source": "PHP",
+    "secs": 81.58,
+    "mem": 19436,
+    "cpu secs": 81.56,
+    "cpu_1_load": "49%",
+    "cpu_2_load": "50%",
+    "cpu_3_load": "0%",
+    "cpu_4_load": "0%"
+  },
+  {
+    "source": "Dart",
+    "secs": 202.26,
+    "mem": 19492,
+    "cpu secs": 202.28,
+    "cpu_1_load": "47%",
+    "cpu_2_load": "45%",
+    "cpu_3_load": "0%",
+    "cpu_4_load": "6%"
+  },
+  {
+    "source": "Python 3",
+    "secs": 1500,
+    "mem": 19364,
+    "cpu secs": 1500,
+    "cpu_1_load": "49%",
+    "cpu_2_load": "47%",
+    "cpu_3_load": "3%",
+    "cpu_4_load": "0%"
+  },
+  {
+    "source": "Ruby",
+    "secs": 1500,
+    "mem": 21428,
+    "cpu secs": 1500,
+    "cpu_1_load": "44%",
+    "cpu_2_load": "48%",
+    "cpu_3_load": "3%",
+    "cpu_4_load": "4%"
+  },
+  {
+    "source": "Rust",
+    "secs": 2,
+    "mem": 39296,
+    "cpu secs": 7.84,
+    "cpu_1_load": "97%",
+    "cpu_2_load": "98%",
+    "cpu_3_load": "99%",
+    "cpu_4_load": "98%"
+  }
+]
