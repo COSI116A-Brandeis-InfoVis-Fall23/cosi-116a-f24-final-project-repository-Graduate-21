@@ -1,5 +1,5 @@
-const wid = 821;
-const hei = 520;
+const wid = 865;
+const hei = 500;
 
 const svgb = d3.select("#map-svg")
     .attr("width", wid)
