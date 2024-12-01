@@ -2,82 +2,61 @@
 const svg = d3.select("#bar-svg");
 
 // Set dimensions and margins for the chart
-var margin = {top: 50, right: 1, bottom: 50, left: 50},
+var margin = { top: 20, right: 20, bottom: 100, left: 50 },
     width = 800 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
-// Load the CSV data
-d3.csv("data/dataTest.csv", function(error, data) {
-  if (error) {
-    console.error("Error loading data:", error);
-    return;
-  }
+// Group for the chart
+const chartGroup = svg.append("g").attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-  // Convert values to numbers
-  data.forEach(function(d) {
-    d.value = +d.value; // Convert value to a number
-  });
+// Scales
+const xScale = d3.scaleBand().padding(0.1);
+const yScale = d3.scaleLinear()
+.domain([0, 35])
+.range([height - margin.bottom, margin.top]);
 
-  // Sort the data by value
-  data.sort(function(a, b) {
-    return d3.ascending(a.value, b.value);
-  });
 
-  // Define scales
-  const xScale = d3.scaleBand()
-    .domain(data.map(d => d.category))
-    .range([margin.left, width - margin.right])
-    .padding(0.1);
+// Axes groups
+chartGroup.append("g").attr("class", "x-axis").attr("transform", `translate(0, ${height - margin.bottom})`);
+chartGroup.append("g").attr("class", "y-axis").attr("transform", `translate(${margin.left}, 0)`);
 
-  const yScale = d3.scaleLinear()
-    .domain([0, d3.max(data, d => d.value)])
-    .range([height - margin.bottom, margin.top]);
+// Define the play button and text before using them
+const playButton = svg.append("rect")
+    .attr("id", "play-button")
+    .attr("x", margin.left - 20)
+    .attr("y", height - 50)
+    .attr("width", 40)
+    .attr("height", 30)
+    .attr("fill", "lightgray")
+    .attr("rx", 5)
+    .attr("cursor", "pointer");
 
-  // Create axes
-  const xAxis = d3.axisBottom(xScale);
-  svg.append("g")
-    .attr("transform", `translate(0, ${height - margin.bottom})`)
-    .call(xAxis)
-    .selectAll("text")
-    .style("text-anchor", "end")
-    .attr("transform", "rotate(-90)")
-    .attr("dx", "-10px")
-    .attr("dy", "-5px");
-
-  const yAxis = d3.axisLeft(yScale);
-  svg.append("g")
-    .attr("transform", `translate(${margin.left}, 0)`)
-    .call(yAxis);
-
-  // Add bars
-  svg.selectAll(".bar")
-    .data(data)
-    .enter()
-    .append("rect")
-    .attr("class", "bar")
-    .attr("x", d => xScale(d.category))
-    .attr("y", d => yScale(d.value))
-    .attr("width", xScale.bandwidth())
-    .attr("height", d => height - margin.bottom - yScale(d.value))
-    .attr("fill", d => d.color);
+const playButtonText = svg.append("text")
+    .attr("id", "play-text")
+    .attr("x", margin.left - 0)
+    .attr("y", height -30)
+    .attr("text-anchor", "middle")
+    .style("font-size", "14px")
+    .style("font-weight", "bold")
+    .attr("pointer-events", "none")
+    .text("Play");
 
   // Add chart title
   svg.append("text")
-    .attr("x", margin.left + 200)
-    .attr("y", margin.top - 30)
-    .style("font-size", "18px")
-    .style("font-weight", "bold")
-    .text("Popularity of Programming Languages");
-});
+  .attr("x", margin.left +215)
+  .attr("y", margin.top -5)
+  .style("font-size", "15px")
+  .style("font-weight", "bold")
+  .text("Popularity of Programming Languages");
 
 // Add the sub-title
 svg
   .append("text")
   .attr("class", "x-axis-title")
-  .attr("x", margin.left + 735)
-  .attr("y", margin.top + 305)
+  .attr("x", margin.left + 740)
+  .attr("y", margin.top + 285)
   .attr("text-anchor", "middle")
-  .style("font-size", "5px")
+  .style("font-size", "4px")
   .style("font-weight", "bold")
   .style("font-family", "sans-serif")
   .text("Programming Languages");
@@ -85,148 +64,164 @@ svg
 svg
   .append("text")
   .attr("class", "y-axis-title")
-  .attr("x", margin.left)
-  .attr("y", margin.top - 15)
-  //.attr("transform", "rotate(-90)")
+  .attr("x", margin.left + 45)
+  .attr("y", margin.top +5)
   .attr("text-anchor", "middle")
   .style("font-size", "5px")
   .style("font-weight", "bold")
   .style("font-family", "sans-serif")
-  .text("Popularity (in Search)");
+  .text("Language Values in % out of 100 %");
 
 
-
-
-// // Date range for the slider
-// const dateRange = [
-//   "Jul-04", "Aug-04", "Sep-04", "Oct-04", "Nov-04", "Dec-04",
-//   "Jan-05", "Feb-05", "Mar-05", "Apr-05", "May-05", "Jun-05",
-//   "Jul-05", "Aug-05", "Sep-05", "Oct-05", "Nov-05", "Dec-05",
-// ];
-
-// Generate the full date range for the slider
-const dateRange = [];
-const startDate = new Date(2004, 6);
-const endDate = new Date(2024, 5);
-let currentDate = startDate;
-
-while (currentDate <= endDate) {
-  const month = currentDate.toLocaleString('en-US', { month: 'short' });
-  const year = currentDate.getFullYear();
-  dateRange.push({ month, year, fullDate: `${month}-${year.toString().slice(-2)}` });
-  currentDate.setMonth(currentDate.getMonth() + 1);
-}
-
-// Slider setup
-const sliderScale = d3.scaleLinear()
-  .domain([0, dateRange.length - 1]) // Scale for all months
-  .range([margin.left, width - margin.right]);
-
-// Add the slider axis with years as major ticks
-const sliderGroup = svg.append("g")
-  .attr("transform", `translate(30, ${height + 50})`);
-
-const sliderAxis = d3.axisBottom(sliderScale)
-  .tickValues(
-    dateRange
-      .map((_, i) => i)
-      .filter(i => dateRange[i].month === "Jan") // Major ticks for years (January of each year)
-  )
-  .tickFormat(i => dateRange[i].year); // Display only the year for major ticks
-
-sliderGroup.call(sliderAxis)
-  .selectAll("text")
-  .style("text-anchor", "middle")
-  .style("font-size", "12px");
-
-// Add a draggable rectangle as the handle
-const handleWidth = 5;
-const handleHeight = 20;
-
-const handle = sliderGroup.append("rect")
-  .attr("x", sliderScale(0) - handleWidth / 2) // Center on the first month
-  .attr("y", -handleHeight / 2)
-  .attr("width", handleWidth)
-  .attr("height", handleHeight)
-  .attr("fill", "steelblue")
-  .call(
-    d3.drag()
-      .on("drag", function () {
-        const mouseX = d3.event.x; // Get the current mouse position
-        const closestIndex = Math.round(sliderScale.invert(mouseX)); // Snap to the closest month index
-        const validIndex = Math.max(0, Math.min(closestIndex, dateRange.length - 1));
-        const closestMonth = dateRange[validIndex];
-
-        // Update the handle position
-        d3.select(this).attr("x", sliderScale(validIndex) - handleWidth / 2);
-
-        // Update the time text and currentIndex
-        timeText.text(closestMonth.fullDate);
-        currentIndex = validIndex; // Update currentIndex to reflect manual movement
-
-        console.log("Selected Date:", closestMonth.fullDate);
-      })
-  );
-
-// Add a text element to show the current time below the slider
-const timeText = svg.append("text")
-  .attr("id", "time-scale-text")
-  .attr("x", width / 2)
-  .attr("y", height + 90)
-  .attr("text-anchor", "middle")
-  .style("font-size", "16px")
-  .style("font-weight", "bold")
-  .text(dateRange[0].fullDate); // Set initial text to the first date
-
-
-// Add the play button
-const playButton = svg.append("rect")
-  .attr("id", "play-button")
-  .attr("x", margin.left - 40)
-  .attr("y", height + 40)
-  .attr("width", 40)
-  .attr("height", 30)
-  .attr("fill", "lightgray")
-  .attr("rx", 5)
-  .attr("cursor", "pointer");
-
-const playButtonText = svg.append("text")
-  .attr("id", "play-text")
-  .attr("x", margin.left - 20)
-  .attr("y", height + 60)
-  .attr("text-anchor", "middle")
-  .style("font-size", "14px")
-  .style("font-weight", "bold")
-  .attr("pointer-events", "none")
-  .text("Play");
-
-
-let isPlaying = false;
-let currentIndex = 0;
-let animationInterval = null;
-
-// Play animation logic
-function playAnimation() {
-  animationInterval = setInterval(() => {
-    if (currentIndex >= dateRange.length) {
-      clearInterval(animationInterval); // Stop animation at the end
-      isPlaying = false;
-      playButtonText.text("Play");
-      return;
+  d3.csv("data/programming_language_trends.csv", function (error, data) {
+    if (error) {
+        console.error("Error loading CSV data:", error);
+        return;
     }
 
-    // Update handle position and time text
-    handle.attr("x", sliderScale(currentIndex) - handleWidth / 2);
-    timeText.text(dateRange[currentIndex].fullDate);
-    currentIndex++;
-  }, 200); // Adjust speed
-}
+    // Parse data
+    data.forEach(d => {
+        d.value = +d.value;
+    });
 
-// Pause animation logic
-function pauseAnimation() {
-  clearInterval(animationInterval);
-  animationInterval = null;
-}
+    // Group data by `date` (e.g., `Jul-04`)
+    const groupedData = d3.group(data, d => d.date);
+
+    // Generate the slider domain based on data range
+    const startDate = "Jul-04";
+    const endDate = "Jul-24";
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const startYear = parseInt(startDate.split("-")[1]) + 2000;
+    const endYear = parseInt(endDate.split("-")[1]) + 2000;
+
+    const sliderDomain = [];
+    for (let year = startYear; year <= endYear; year++) {
+        for (let month of months) {
+            const date = `${month}-${year.toString().slice(-2)}`;
+            if (year === startYear && (month === "Jan")) continue; // Skip months before `Jul-04`
+            sliderDomain.push(date);
+            if (date === endDate) break; // Stop at `Jul-24`
+        }
+    }
+
+    let currentSliderIndex = sliderDomain.indexOf(startDate); // Start at `Jul-04`
+
+    // Function to update the bar chart for a given slider index
+    function updateBarChart(sliderIndex) {
+
+      //console.log(`Currently displaying data for: ${year}`);
+
+        const key = sliderDomain[sliderIndex];
+        const chartData = groupedData.get(key) || [];
+        if (chartData.length === 0) {
+            console.warn(`No data available for ${key}`);
+            return;
+        }
+
+        // Sort data by value
+        chartData.sort((a, b) => a.value - b.value);
+
+        // Update scales
+        xScale.domain(chartData.map(d => d.category)).range([margin.left, width - margin.right]);
+        //yScale.domain([0, d3.max(chartData, d => d.value)]).range([height - margin.bottom, margin.top]);
+
+        // Bind data and update bars
+        const bars = chartGroup.selectAll(".bar").data(chartData, d => d.category);
+
+        bars.enter()
+            .append("rect")
+            .attr("class", "bar")
+            .attr("x", d => xScale(d.category))
+            .attr("y", yScale(0))
+            .attr("width", xScale.bandwidth())
+            .attr("height", 0)
+            .attr("fill", d => d.color)
+            .transition()
+            .duration(500)
+            .attr("y", d => yScale(d.value))
+            .attr("height", d => height - margin.bottom - yScale(d.value));
+
+        bars.transition()
+            .duration(500)
+            .attr("x", d => xScale(d.category))
+            .attr("y", d => yScale(d.value))
+            .attr("width", xScale.bandwidth())
+            .attr("height", d => height - margin.bottom - yScale(d.value))
+            .attr("fill", d => d.color);
+
+        bars.exit()
+            .transition()
+            .duration(500)
+            .attr("height", 0)
+            .attr("y", yScale(0))
+            .remove();
+
+        // Update axes
+        chartGroup.select(".x-axis")
+            .call(d3.axisBottom(xScale))
+            .selectAll("text")
+            .style("text-anchor", "end")
+            .attr("transform", "rotate(-45)");
+
+        chartGroup.select(".y-axis").call(d3.axisLeft(yScale));
+    }
+
+    updateBarChart(currentSliderIndex); // Initialize with `Jul-04`
+
+    // Slider logic
+    const sliderGroup = svg.append("g").attr("transform", `translate(40, ${height - 20})`);
+    const sliderScale = d3.scaleLinear()
+        .domain([0, sliderDomain.length - 1])
+        .range([margin.left, width - margin.right]);
+
+    const sliderAxis = d3.axisBottom(sliderScale)
+        .tickValues(d3.range(0, sliderDomain.length, 12)) // Show ticks only for years
+        .tickFormat(d => sliderDomain[d].split("-")[1]); // Format ticks to show years
+
+    sliderGroup.call(sliderAxis);
+
+    const handle = sliderGroup.append("circle")
+        .attr("cx", sliderScale(currentSliderIndex))
+        .attr("cy", 0)
+        .attr("r", 5)
+        .attr("fill", "steelblue")
+        .call(
+            d3.drag()
+                .on("drag", function () {
+                    const mouseX = d3.event.x;
+                    const newIndex = Math.round(sliderScale.invert(mouseX));
+                    const validIndex = Math.max(0, Math.min(newIndex, sliderDomain.length - 1));
+                    currentSliderIndex = validIndex;
+                    d3.select(this).attr("cx", sliderScale(validIndex));
+                    updateBarChart(validIndex);
+                })
+        );
+
+    let isPlaying = false;
+    let animationInterval;
+
+    playButton.on("click", () => {
+        if (isPlaying) {
+            isPlaying = false;
+            clearInterval(animationInterval);
+            playButtonText.text("Play");
+        } else {
+            isPlaying = true;
+            playButtonText.text("Pause");
+            animationInterval = setInterval(() => {
+                if (currentSliderIndex >= sliderDomain.length) {
+                    clearInterval(animationInterval);
+                    isPlaying = false;
+                    playButtonText.text("Play");
+                    return;
+                }
+                handle.attr("cx", sliderScale(currentSliderIndex));
+                updateBarChart(currentSliderIndex);
+                currentSliderIndex++;
+            }, 500);
+        }
+    });
+});
 
 // Add click event for play/pause toggle
 playButton.on("click", () => {
@@ -257,5 +252,6 @@ https://observablehq.com/@mbostock/hello-d3-simple-slider
 https://github.com/johnwalley/d3-simple-slider
 https://gist.github.com/johnwalley/e1d256b81e51da68f7feb632a53c3518
 https://www.youtube.com/watch?v=Fb-7Flq7lwU
-ChatGPT
+https://www.youtube.com/watch?v=F7kywR25F1g
+ChatGPT: most on fixing link bugs and problem caused by different d3 version
 */
