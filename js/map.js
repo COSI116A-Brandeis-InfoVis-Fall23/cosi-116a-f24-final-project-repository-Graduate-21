@@ -17,7 +17,7 @@ d3.json("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/w
         return;
     }
 
-    d3.csv("programming_languages_popularity_by_region.csv", function(error, data) {
+    d3.csv("data/programming_languages_popularity_by_region.csv", function(error, data) {
         if (error) {
             console.error("Error loading CSV data:", error);
             return;
