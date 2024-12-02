@@ -41,7 +41,7 @@ const playButtonText = svg.append("text")
   // Chart title
   svg.append("text")
   .attr("x", margin.left +215)
-  .attr("y", margin.top -10)
+  .attr("y", margin.top -5)
   .style("font-size", "15px")
   .style("font-weight", "bold")
   .text("Popularity of Programming Languages");
@@ -286,23 +286,3 @@ function brushed() {
   }
 }
 
-
-
-
-/*Acknowledgements:
-https://d3-graph-gallery.com/graph/barplot_ordered.html
-https://www.youtube.com/watch?v=sTOHoueLVJE
-https://github.com/datavizdad/d3barchartseries/blob/main/script.js
-https://www.youtube.com/watch?v=BDpBAFvdjYo
-https://observablehq.com/@d3/bar-chart/2
-https://github.com/COSI116A-Brandeis-InfoVis-Fall23/hw-4-brushing-and-linking-yuanshuo-wu/blob/main/js/scatterplot.js
-https://observablehq.com/@mbostock/hello-d3-simple-slider
-https://github.com/johnwalley/d3-simple-slider
-https://gist.github.com/johnwalley/e1d256b81e51da68f7feb632a53c3518
-https://www.youtube.com/watch?v=Fb-7Flq7lwU
-https://www.youtube.com/watch?v=F7kywR25F1g
-https://d3-graph-gallery.com/graph/interactivity_brush.html
-https://observablehq.com/@d3/focus-context?collection=@d3/d3-brush
-https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener
-ChatGPT: most on fixing link bugs and problem caused by different d3 version
-*/

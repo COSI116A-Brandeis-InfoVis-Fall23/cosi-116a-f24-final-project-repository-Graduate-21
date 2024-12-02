@@ -85,7 +85,3 @@ window.addEventListener("clearHighlight", function() {
 });
 
 
-/*Acknowledgements:
-https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener
-ChatGPT: most on fixing data and addEventListener
-*/
