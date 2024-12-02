@@ -83,3 +83,9 @@ window.addEventListener("brushHighlight", function(event) {
 window.addEventListener("clearHighlight", function() {
     d3.selectAll("td").style("background-color", "#f9f9f9"); // Reset all cells
 });
+
+
+/*Acknowledgements:
+https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener
+ChatGPT: most on fixing data and addEventListener
+*/
