@@ -6,7 +6,6 @@ var margin = { top: 20, right: 20, bottom: 100, left: 50 },
     width = 800 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
-// Group for the chart
 const chartGroup = svg.append("g").attr("transform", `translate(${margin.left}, ${margin.top})`);
 
 // Scales
@@ -15,12 +14,10 @@ const yScale = d3.scaleLinear()
 .domain([0, 35])
 .range([height - margin.bottom, margin.top]);
 
-
-// Axes groups
 chartGroup.append("g").attr("class", "x-axis").attr("transform", `translate(0, ${height - margin.bottom})`);
 chartGroup.append("g").attr("class", "y-axis").attr("transform", `translate(${margin.left}, 0)`);
 
-// Define the play button and text before using them
+// Define the play button
 const playButton = svg.append("rect")
     .attr("id", "play-button")
     .attr("x", margin.left - 20)
@@ -41,7 +38,7 @@ const playButtonText = svg.append("text")
     .attr("pointer-events", "none")
     .text("Play");
 
-  // Add chart title
+  // Chart title
   svg.append("text")
   .attr("x", margin.left +215)
   .attr("y", margin.top -5)
@@ -49,7 +46,7 @@ const playButtonText = svg.append("text")
   .style("font-weight", "bold")
   .text("Popularity of Programming Languages");
 
-// Add the sub-title
+// Sub-title
 svg
   .append("text")
   .attr("class", "x-axis-title")
@@ -84,7 +81,7 @@ svg
         d.value = +d.value;
     });
 
-    // Group data by `date` (e.g., `Jul-04`)
+    // Group data by date
     const groupedData = d3.group(data, d => d.date);
 
     // Generate the slider domain based on data range
@@ -98,25 +95,19 @@ svg
     for (let year = startYear; year <= endYear; year++) {
         for (let month of months) {
             const date = `${month}-${year.toString().slice(-2)}`;
-            if (year === startYear && (month === "Jan")) continue; // Skip months before `Jul-04`
+            if (year === startYear && (month === "Jan")) continue;
             sliderDomain.push(date);
-            if (date === endDate) break; // Stop at `Jul-24`
+            if (date === endDate) break;
         }
     }
 
-    let currentSliderIndex = sliderDomain.indexOf(startDate); // Start at `Jul-04`
+    let currentSliderIndex = sliderDomain.indexOf(startDate);
 
     // Function to update the bar chart for a given slider index
     function updateBarChart(sliderIndex) {
 
-      //console.log(`Currently displaying data for: ${year}`);
-
         const key = sliderDomain[sliderIndex];
         const chartData = groupedData.get(key) || [];
-        if (chartData.length === 0) {
-            console.warn(`No data available for ${key}`);
-            return;
-        }
 
         // Sort data by value
         chartData.sort((a, b) => a.value - b.value);
@@ -139,7 +130,7 @@ svg
             .transition()
             .duration(500)
             .attr("y", d => yScale(d.value))
-            .attr("height", d => height - margin.bottom - yScale(d.value));
+            .attr("height", d => height - margin.bottom - yScale(d.value))
 
         bars.transition()
             .duration(500)
@@ -166,7 +157,7 @@ svg
         chartGroup.select(".y-axis").call(d3.axisLeft(yScale));
     }
 
-    updateBarChart(currentSliderIndex); // Initialize with `Jul-04`
+    updateBarChart(currentSliderIndex);
 
     // Slider logic
     const sliderGroup = svg.append("g").attr("transform", `translate(40, ${height - 20})`);
@@ -223,7 +214,7 @@ svg
     });
 });
 
-// Add click event for play/pause toggle
+// Click event for play/pause toggle
 playButton.on("click", () => {
   if (isPlaying) {
     // Pause the animation
@@ -239,6 +230,72 @@ playButton.on("click", () => {
   }
 });
 
+// Create a brush
+const brush = d3.brushX()
+    .extent([[margin.left, margin.top], [width - margin.right, height - margin.bottom]])
+    .on("brush", brushed)
+    .on("end", brushed);
+
+// Append the brush overlay to the chart
+chartGroup.append("g")
+    .attr("class", "brush")
+    .call(brush);
+
+// Brushing function
+function brushed() {
+  const selection = d3.event.selection;
+
+  if (selection) {
+      const [x0, x1] = selection;
+
+      // Identify the brushed bars
+      const brushedLanguages = [];
+      chartGroup.selectAll(".bar")
+          .attr("fill", function(d) {
+              const xPosition = xScale(d.category) + xScale.bandwidth() / 2;
+              const isBrushed = x0 <= xPosition && xPosition <= x1;
+
+              if (isBrushed) {
+                  brushedLanguages.push(d.category);
+              }
+
+              return isBrushed ? "#e6e6fa" : d.color;
+          });
+
+      // Dispatch custom event with brushed languages
+      const highlightEvent = new CustomEvent("brushHighlight", { detail: brushedLanguages });
+      window.dispatchEvent(highlightEvent);
+  } else {
+      // Clear all bar highlights if no selection
+      chartGroup.selectAll(".bar").attr("fill", d => d.color);
+
+      // Dispatch clear event for table
+      const clearEvent = new CustomEvent("clearHighlight");
+      window.dispatchEvent(clearEvent);
+  }
+}
+
+
+// // Handle highlightLanguages event
+// window.addEventListener("highlightLanguages", function(event) {
+//   const highlightedLanguages = event.detail; // List of currently highlighted languages
+
+//   // Update the bars' colors based on highlighted languages
+//   chartGroup.selectAll(".bar")
+//       .attr("fill", function(d) {
+//           return highlightedLanguages.includes(d.category) ? "#e6e6fa" : d.color;
+//       });
+// });
+
+// // Handle table clear event
+// window.addEventListener("clearHighlight", function() {
+//   // Reset all bars to their original colors
+//   chartGroup.selectAll(".bar")
+//       .attr("fill", function(d) {
+//           return d.color;
+//       });
+// });
+
 
 
 /*Acknowledgements:
@@ -253,5 +310,8 @@ https://github.com/johnwalley/d3-simple-slider
 https://gist.github.com/johnwalley/e1d256b81e51da68f7feb632a53c3518
 https://www.youtube.com/watch?v=Fb-7Flq7lwU
 https://www.youtube.com/watch?v=F7kywR25F1g
+https://d3-graph-gallery.com/graph/interactivity_brush.html
+https://observablehq.com/@d3/focus-context?collection=@d3/d3-brush
+https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener
 ChatGPT: most on fixing link bugs and problem caused by different d3 version
 */
