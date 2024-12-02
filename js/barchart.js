@@ -41,7 +41,7 @@ const playButtonText = svg.append("text")
   // Chart title
   svg.append("text")
   .attr("x", margin.left +215)
-  .attr("y", margin.top -5)
+  .attr("y", margin.top -10)
   .style("font-size", "15px")
   .style("font-weight", "bold")
   .text("Popularity of Programming Languages");
@@ -68,6 +68,17 @@ svg
   .style("font-weight", "bold")
   .style("font-family", "sans-serif")
   .text("Language Values in % out of 100 %");
+
+  svg
+  .append("text")
+  .attr("class", "y-axis-title")
+  .attr("x", margin.left + 355)
+  .attr("y", margin.top +5)
+  .attr("text-anchor", "middle")
+  .style("font-size", "6px")
+  .style("font-weight", "bold")
+  .style("font-family", "sans-serif")
+  .text("The more a language tutorial is searched, the more popular the language is assumed to be");
 
 
   d3.csv("data/programming_language_trends.csv", function (error, data) {
