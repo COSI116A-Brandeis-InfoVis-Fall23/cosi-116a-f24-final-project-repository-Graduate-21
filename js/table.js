@@ -41,8 +41,8 @@ while (languageData.length) {
 const table = d3.select("#table-container")
     .append("table")
     .style("border-collapse", "collapse")
-    .style("margin", "20px auto") // Center the table horizontally
-    .style("width", "80%"); // Set the table width to 80% of the parent container
+    .style("margin", "20px auto")
+    .style("width", "80%"); 
 
 const tbody = table.append("tbody");
 
@@ -60,8 +60,9 @@ rows.selectAll("td")
     .style("border", "1px solid black")
     .style("padding", "12px")
     .style("background-color", "#f9f9f9")
-    .style("text-align", "center") // Center the text horizontally
-    .style("vertical-align", "middle") // Center the text vertically
-    .style("font-size", "18px") // Increase the font size
+    .style("text-align", "center")
+    .style("vertical-align", "middle")
+    .style("font-size", "18px")
     .style("color", d => d.color)
+    .style("user-select", "none")
     .text(d => d.language);
