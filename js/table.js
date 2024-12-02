@@ -70,59 +70,6 @@ const cells = rows.selectAll("td")
 
 
 
-// // Track currently highlighted cell
-// let highlightedLanguages = [];
-
-// // Mousedown: Highlight the cell in #e6e6fa
-// cells.on("mousedown", function(event, d) {
-//     const language = d.category;
-
-//     // Toggle highlight for the clicked cell
-//     const isHighlighted = d3.select(this).classed("highlighted");
-
-//     if (isHighlighted) {
-//         // Remove highlight
-//         d3.select(this).classed("highlighted", false).style("background-color", "#f9f9f9");
-//         highlightedLanguages = highlightedLanguages.filter(lang => lang !== language);
-//     } else {
-//         // Add highlight
-//         d3.select(this).classed("highlighted", true).style("background-color", "#e6e6fa");
-//         highlightedLanguages.push(language);
-//     }
-
-//     // Dispatch the event with the list of highlighted languages
-//     const highlightEvent = new CustomEvent("highlightLanguages", { detail: highlightedLanguages });
-//     console.log("Highlight Event:", highlightEvent); // Debugging
-//     window.dispatchEvent(highlightEvent);
-// });
-
-// // Mouseover: Highlight with dark gray unless the cell is already highlighted
-// cells.on("mouseover", function() {
-//     if (!d3.select(this).classed("highlighted")) {
-//         d3.select(this).style("background-color", "#A9A9A9"); // Dark Gray
-//     }
-// })
-// .on("mouseout", function() {
-//     if (!d3.select(this).classed("highlighted")) {
-//         d3.select(this).style("background-color", "#f9f9f9"); // Reset to original
-//     }
-// });
-
-// // Clear highlights when clicking outside the table
-// d3.select("body").on("click", function() {
-//     const container = document.getElementById("table-container");
-//     const target = d3.event.target; // Use d3.event for compatibility with D3 v4
-
-//     if (!container.contains(target)) {
-//         // Reset all cells to default background
-//         cells.style("background-color", "#f9f9f9");
-
-//         // Dispatch a custom event to reset the bar chart
-//         const clearEvent = new CustomEvent("clearHighlight");
-//         window.dispatchEvent(clearEvent);
-//     }
-// });
-
 // Listen to brushHighlight event from the bar chart
 window.addEventListener("brushHighlight", function(event) {
     const brushedLanguages = event.detail;

@@ -287,26 +287,6 @@ function brushed() {
 }
 
 
-// // Handle highlightLanguages event
-// window.addEventListener("highlightLanguages", function(event) {
-//   const highlightedLanguages = event.detail; // List of currently highlighted languages
-
-//   // Update the bars' colors based on highlighted languages
-//   chartGroup.selectAll(".bar")
-//       .attr("fill", function(d) {
-//           return highlightedLanguages.includes(d.category) ? "#e6e6fa" : d.color;
-//       });
-// });
-
-// // Handle table clear event
-// window.addEventListener("clearHighlight", function() {
-//   // Reset all bars to their original colors
-//   chartGroup.selectAll(".bar")
-//       .attr("fill", function(d) {
-//           return d.color;
-//       });
-// });
-
 
 
 /*Acknowledgements:
