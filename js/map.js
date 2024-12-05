@@ -1,3 +1,6 @@
+let dataByRegion = {};
+let selectedRegion = null;
+
 // Define dimensions for the SVG container
 const wid = 865;
 const hei = 500;
@@ -30,13 +33,13 @@ d3.json("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/w
         }
 
         // Convert CSV data into an object indexed by region name
-        const dataByRegion = {};
+        // const dataByRegion = {};
         data.forEach(d => {
             dataByRegion[d.Region] = d;
         });
 
         // Variable to store currently selected region
-        let selectedRegion = null;  
+        //let selectedRegion = null;  
 
         // Draw the map using GeoJSON data
         svgb.selectAll("path")
@@ -108,5 +111,58 @@ d3.json("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/w
 
     });
 });
+
+function updateMapForLanguage(lang_idx) {
+    const regions = svgb.selectAll("path"); 
+
+    regions.each(function(d) {
+        const regionName = d.properties.name;
+        const regionData = dataByRegion[regionName];
+
+        if (regionData) {
+            // Extract the array of language names
+            const languages = Object.keys(regionData).filter(key => key !== "Region");
+
+            // Get the language name based on lang_idx
+            const language = languages[lang_idx];
+
+            if (language && regionData[language]) {
+                
+                const value = +regionData[language]; 
+
+                // Use the color scale to set the region's color
+                const colorScale = d3.scaleSequential(d3.interpolateReds)
+                    .domain([0, 53]);
+
+                d3.select(this).attr("fill", colorScale(value));
+            } else {
+                d3.select(this).attr("fill", "#cccccc"); 
+            }
+        } else {
+            d3.select(this).attr("fill", "#cccccc"); 
+        }
+    });
+}
+
+function updateMapToDefault() {
+    const regions = svgb.selectAll("path"); 
+
+    regions.each(function(d) {
+        const regionName = d.properties.name;
+        const regionData = dataByRegion[regionName];
+
+        if (regionData) {
+            
+            d3.select(this).attr("fill", "#cce5df"); 
+        } else {
+            d3.select(this).attr("fill", "#cccccc"); 
+        }
+
+        d3.select(selectedRegion).attr("fill", "#6ab04c");
+    });
+}
+
+
+
 
 
