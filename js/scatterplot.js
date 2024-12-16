@@ -132,10 +132,9 @@ function scatterplot() {
             .on("start brush", highlight) // When the brush starts/continues do...
             .on("end", brushEnd) // When the brush ends do...
             .extent([
-                [0-5, 0-5],
-                [width+5, height+5]
+              [-margin.left, -margin.bottom],
+              [width + margin.right, height + margin.top]
             ]);
-          
         ourBrush = brush;
   
         g.call(brush); // Adds the brush to this element
