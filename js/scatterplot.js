@@ -1,7 +1,7 @@
 //Scatterplot.js
 function scatterplot() {
     let margin = {
-        top: 60,
+        top: 30,
         left: 80,
         right: 150,
         bottom: 30

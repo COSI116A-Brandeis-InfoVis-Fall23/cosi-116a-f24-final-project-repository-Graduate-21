@@ -93,6 +93,7 @@
       </div>
   
   <div class="vis-holder">
+    <h2 class="scatterplot-title">Programming Languages Performance</h2>
     <div class="scatterplot-holder" id="scatterplot"></div>
   </div>
   <div id="table-scatterplot-container"></div>
@@ -125,7 +126,9 @@
 
     <p><em>
       The world map displays countries colored based on data availability. When a user clicks on a country, the bar chart below updates to show the percentage of developers in that region using different programming languages. When hovering over a bar, the map dynamically displays a heatmap that represents the popularity of the corresponding programming language across different regions. The interactive nature of the map and charts allows users to explore the data for each region, offering insights into global programming language trends.</em></p>
-
+    <p><em>This visualization integrates a scatterplot and a table to provide an interactive exploration of programming language trends. The scatterplot visualizes the relationship between runtime and memory usage, 
+      using color-coded points to represent different languages. The table complements this by listing detailed information, such as language type and average CPU load, which users can sort dynamically. Through brushing and linking, users can select data points on the scatterplot to highlight corresponding rows in the table, 
+      and vice versa, enabling synchronized and intuitive data exploration.</em></p>
     <p><em>Presentation slides with screenshots yet to be made.</em></p>
 
     <h1>Data Analysis</h1>
@@ -133,29 +136,44 @@
 
     <!--<p><em>Expectation: Data sources match the problem statement and are appropriate. These descriptions should be very explicit so someone could read your page and properly reproduce your results.</em></p>-->
 
-    <p><em>The data used in the barchart and slider is in the programming_language_trends.csv</em></p>
+    <p><em>The data used in the barchart and slider is in the <strong>programming_language_trends.csv</strong></em></p>
     <p><em>It include 4 types of data: date,category,value,color.
        each language has a specific color assigned to, and each language has corresponding data for the 12 months of each year. After organizing them, the data types are read to generate the visualization.</em></p>
 
-    <p><em>data for world map: programming_languages_popularity_by_region.csv.</em></p>
+    <p><em>The data for world map: <strong>programming_languages_popularity_by_region.csv.</strong></em></p>
     <p><em>It includes data on regions (category) and the percentage values for each programming language in those regions. The organized data is then read to generate the visualization.</em></p>
-
+    <p><em>The data for Scatterplot and Table:<strong> scatterplot.js.</strong></em></p>
+    <p><em>The dataset consists of programming language performance metrics, including runtime, memory usage, source language, and average CPU load. Each record corresponds to a specific data point 
+      representing a programming language's performance characteristics.</em></p>
 
     <h1>Task Analysis</h1>
 
-    <p><em>Task1: Identify the most popular programming languages based on recent trends.</em></p>
-    <p><em>Task2: Compare performance of programming languages for different tasks.</em></p>
-    <p><em>Task3: Programming Languages Popularity by Region</em></p>
+    <p><em><strong>Task1: Identify the most popular programming languages based on recent trends.</strong></em></p>
 
-    <!--<p><em>Expectation: Clearly describes domain tasks, processes, goals and abstract tasks for domain problems.</em></p>-->
-    <p><em>Sketches and design choices to justify final visualization.</em></p>
     <p><em>Task1: The bar chart clearly reflects the differences in popularity among different programming languages, as the bars are placed side by side, making it easy to compare their lengths. Additionally, the chart is already sorted, making the overall trend even clearer. Bar charts are also well-suited for handling categorical data, and this chart allows us to observe and analyze gradual trend changes over time by moving the time bar below the chart.
 
       By using encoding on categorized languages and date, the chart allows viewers to compare values effectively and complete the task1 well. And the selection feature of the table below allows viewers to better choose specific data to display, making it easier to compare and highlight the differences in data size for a smaller number of languages.
       </em></p>
-    <p><em>Task2: </em></p>
+    <p><em><strong>Task2: Compare performance of programming languages for different tasks.</strong></em></p>
+    
+    <p><em>Task2:The scatterplot visually represents relationships between runtime (x-axis) and memory usage (y-axis), with point sizes encoding average CPU load. 
+        The clear separation of points and their color-coded representation by language makes it intuitive to compare multiple languages at a glance. By selecting regions of interest using the brushing feature, users can isolate high-performing or outlier languages for specific tasks.
+        The table complements the scatterplot by displaying detailed data, such as language type and other performance metrics, in a sortable format. Sorting and filtering features enable users to refine their analysis, 
+        focusing on relevant languages or metrics.</em></p>
+        
+    <p><em>The linking functionality between the scatterplot and table ensures synchronized updates—brushing a region in the scatterplot highlights corresponding rows in the table, and vice versa. This seamless interaction allows users to analyze specific subsets of languages, 
+        compare their performance, and identify the best options for different computational needs.
+        The combination of scatterplot encoding and table interaction provides a powerful tool to evaluate trade-offs in runtime, memory usage, and CPU load,
+        effectively addressing the task of comparing programming language performance across various scenarios.</em></p>
+    <p><em><strong>Task3: Programming Languages Popularity by Region.</strong></em></p>
     <p><em>Task3: The processes involved in achieving the goal include browsing the map to select a country, then exploring the accompanying charts that dynamically update based on user selection. Additionally, hovering over a bar in the chart triggers a heatmap on the map, visually representing the popularity of the selected programming language across different regions. The abstract tasks supported by this visualization include comparison of language popularity across regions, exploration of trends within a specific country, discovery of regional differences that may not be immediately evident without the use of interactive visual tools, and analysis of language-specific global distributions.</em></p>
 
+
+    <!--<p><em>Expectation: Clearly describes domain tasks, processes, goals and abstract tasks for domain problems.</em></p>-->
+    <p><em>Sketches and design choices to justify final visualization.</em></p>
+    
+    
+    
     <h1>Design Process</h1>
 
     <p><em>Sketches and design choices to justify final visualization.</em></p>
@@ -186,6 +204,58 @@
     <p><em>Short summary of work completed and areas for improvement/future-work.</em></p>
 
     <p><em>Expectation: Meaningfully wraps up project and has good future directions.</em></p>
+    
+
+    <h3>Summary of Work Completed</h3>
+    <p>
+        This project successfully developed an interactive data visualization system to explore the trends and performance of programming languages. The system integrates multiple visualization techniques:
+    </p>
+    <ul>
+        <li>
+            <strong>Bar Chart with Time Slider:</strong> Highlights trends in the popularity of programming languages over time, allowing users to analyze changes and make direct comparisons.
+        </li>
+        <li>
+            <strong>World Map and Heatmap:</strong> Provides insights into regional variations in language usage and popularity, enabling geographic-specific analysis.
+        </li>
+        <li>
+            <strong>Scatterplot and Table:</strong> Facilitates detailed performance comparisons across languages, showing runtime, memory usage, and CPU load, while allowing users to interactively select and sort data for specific tasks.
+        </li>
+    </ul>
+    <p>
+        The <strong>brushing and linking functionality</strong> across visualizations ensures a seamless exploration experience, enabling users to connect high-level trends with detailed performance metrics effectively.
+    </p>
+
+    <h3>Areas for Improvement</h3>
+    <ul>
+        <li>
+            <strong>Data Completeness:</strong> Some regions or programming languages have limited or no data. Enhancing the dataset with more comprehensive information would improve analysis accuracy.
+        </li>
+        <li>
+            <strong>Scalability:</strong> For larger datasets, the visualizations may become crowded or unresponsive. Optimizing the visual components for performance and incorporating zoom or filtering features could address this issue.
+        </li>
+        <li>
+            <strong>User Interface:</strong> The current UI could be enhanced to provide more intuitive controls, such as tooltips for scatterplot points and map regions, or a search feature for quick access to specific languages or regions.
+        </li>
+        <li>
+            <strong>Mobile Responsiveness:</strong> The visualizations are optimized for desktop devices but could be adapted for mobile screens to reach a wider audience.
+        </li>
+    </ul>
+
+    <h3>Future Work</h3>
+    <ul>
+        <li>
+            <strong>Advanced Trend Analysis:</strong> Incorporate machine learning models or statistical analysis to predict future trends in programming language popularity based on historical data.
+        </li>
+        <li>
+            <strong>Additional Metrics:</strong> Extend the scatterplot and table to include new metrics, such as developer satisfaction, learning difficulty, or language-specific tooling support.
+        </li>
+        <li>
+            <strong>Dynamic Data Integration:</strong> Allow users to upload their own datasets to analyze trends specific to their contexts, further enhancing the system's versatility.
+        </li>
+        <li>
+            <strong>Improved Visual Encoding:</strong> Explore alternative visualizations (e.g., radar charts for multiple metrics or treemaps for hierarchical data) to provide a broader perspective on language performance and popularity.
+        </li>
+    </ul>
 
 
     <h1>Acknowledgments</h1>
