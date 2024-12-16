@@ -17,7 +17,7 @@ function scatterplot() {
       yScale = d3.scaleLog(),
       ourBrush = null,
       selectableElements = d3.select(null),
-      dispatcher;
+      scatterplotDispatcher;
   
     // Create the chart by adding an svg to the div with the id 
     // specified by the selector using the given data
@@ -138,6 +138,9 @@ function scatterplot() {
   
         // Highlight the selected circles
         function highlight() {
+          selectableElements.classed("selected", false)
+            .style("stroke", "black")
+            .style("stroke-width", 0.5);
           if (d3.event.selection === null) return;
           const [
             [x0, y0],
@@ -150,10 +153,10 @@ function scatterplot() {
           );
   
           // Get the name of our dispatcher's event
-          let dispatchString = Object.getOwnPropertyNames(dispatcher._)[0];
+          let dispatchString = Object.getOwnPropertyNames(scatterplotDispatcher._)[0];
   
           // Let other charts know about our selection
-          dispatcher.call(dispatchString, this, svg.selectAll(".selected").data());
+          scatterplotDispatcher.call(dispatchString, this, svg.selectAll(".selected").data());
         }
         
         function brushEnd() {
@@ -165,8 +168,8 @@ function scatterplot() {
                   .style("stroke-width", 0.5); // Reset stroke width
               
               // Notify other visualizations to clear their selections
-              let dispatchString = Object.getOwnPropertyNames(dispatcher._)[0];
-              dispatcher.call(dispatchString, this, []);
+              let dispatchString = Object.getOwnPropertyNames(scatterplotDispatcher._)[0];
+              scatterplotDispatcher.call(dispatchString, this, []);
           }
       }
       }
@@ -234,8 +237,8 @@ function scatterplot() {
   
     // Gets or sets the dispatcher we use for selection events
     chart.selectionDispatcher = function (_) {
-      if (!arguments.length) return dispatcher;
-      dispatcher = _;
+      if (!arguments.length) return scatterplotDispatcher;
+      scatterplotDispatcher = _;
       return chart;
     };
   

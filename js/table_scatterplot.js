@@ -3,7 +3,7 @@ function table_scatterplot() {
     let 
       ourBrush = null,
       selectableElements = d3.select(null),
-      dispatcher;
+      scatterplotDispatcher;
   
     function chart(selector, data) {
       const container = d3.select(selector);
@@ -94,21 +94,20 @@ function table_scatterplot() {
   
               
               let selectedData = tbody.selectAll("tr.selected").data();
-              let dispatchString = Object.getOwnPropertyNames(dispatcher._)[0];
-              dispatcher.call(dispatchString, this, selectedData);
+              let dispatchString = Object.getOwnPropertyNames(scatterplotDispatcher._)[0];
+              scatterplotDispatcher.call(dispatchString, this, selectedData);
           });
         }
   
       let isMouseDown = false;
-  
+        
       tbody.selectAll("tr")
           .on("mousedown", function(event, d) {
               isMouseDown = true;
-  
-              // Clear previous selection
+            console.log("Table row selected");
+              
+              scatterplotDispatcher.call(Object.getOwnPropertyNames(scatterplotDispatcher._)[0], this, []);
               tbody.selectAll("tr").classed("selected", false);
-  
-              // Select the current row
               d3.select(this).classed("selected", true);
               
   
@@ -125,19 +124,19 @@ function table_scatterplot() {
               isMouseDown = false;
               //choose all selected data from the table
               let selectedData = tbody.selectAll("tr.selected").data();
-              let dispatchString = Object.getOwnPropertyNames(dispatcher._)[0];
-              dispatcher.call(dispatchString, this, selectedData);
+              let dispatchString = Object.getOwnPropertyNames(scatterplotDispatcher._)[0];
+              scatterplotDispatcher.call(dispatchString, this, selectedData);
           });
   
      
-  
+      
       return chart;
     }
     
     // Gets or sets the dispatcher we use for selection events
     chart.selectionDispatcher = function (_) {
-      if (!arguments.length) return dispatcher;
-      dispatcher = _;
+      if (!arguments.length) return scatterplotDispatcher;
+      scatterplotDispatcher = _;
       return chart;
     };
   

@@ -142,14 +142,17 @@ h1, h2, h3 {
 }
 
 
-circle.selected {
+#scatterplot circle.selected {
 	fill: pink;
 	stroke: red;
 	opacity: 5;
 }
   
 
-tr.selected {
+#table-scatterplot-container tr.selected {
+	background-color: pink;
+}
+#table-scatterplot-container td.selected {
 	background-color: pink;
 }
   

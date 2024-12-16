@@ -81,7 +81,8 @@ window.addEventListener("brushHighlight", function(event) {
 
 // Handle clear highlight event
 window.addEventListener("clearHighlight", function() {
-    d3.selectAll("td").style("background-color", "#f9f9f9"); // Reset all cells
+    d3.selectAll("td").style("background-color", null); 
+    //d3.selectAll("td").style("background-color", "#f9f9f9"); // Reset all cells
 });
 
 

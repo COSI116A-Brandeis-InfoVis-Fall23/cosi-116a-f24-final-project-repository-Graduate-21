@@ -26,10 +26,18 @@
 
     scatterplotChart.selectionDispatcher().on(dispatchString, function(selectedData) {
         tableChart.updateSelection(selectedData);
+        if (selectedData.length === 0) {
+          tableChart.updateSelection([]);
+          scatterplotChart.updateSelection([]);
+      }
     });
 
     tableChart.selectionDispatcher().on(dispatchString, function(selectedData) {
         scatterplotChart.updateSelection(selectedData);
+        if (selectedData.length === 0) {
+          scatterplotChart.updateSelection([]);
+          tableChart.updateSelection([]);
+      }
     });
     });
 

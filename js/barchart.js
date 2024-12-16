@@ -255,7 +255,6 @@ chartGroup.append("g")
 // Brushing function
 function brushed() {
   const selection = d3.event.selection;
-
   if (selection) {
       const [x0, x1] = selection;
 
