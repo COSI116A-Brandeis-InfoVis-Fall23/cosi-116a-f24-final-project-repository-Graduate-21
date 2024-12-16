@@ -81,7 +81,7 @@ function scatterplot() {
       const languages = [...new Set(data.map(d => d.source.trim()))]; // Extract unique programming languages
   
       languages.forEach((lang, i) => {
-        // 添加圆圈表示颜色
+        
         legend.append("circle")
             .attr("cx", 0)
             .attr("cy", i * 12)
@@ -90,12 +90,9 @@ function scatterplot() {
             .style("stroke", "black")
             .style("stroke-width", 0.5)
             .style("cursor", "pointer")
-            .on("click", (event) => {
-                event.stopPropagation(); // 阻止事件冒泡
-                showLanguageInfo(lang);
-            });
+            
     
-        // 添加文本标签
+        
         legend.append("text")
             .attr("x", 15)
             .attr("y", i * 12 + 4)
@@ -103,10 +100,7 @@ function scatterplot() {
             .style("font-size", "10px")
             .style("fill", "black")
             .style("cursor", "pointer")
-            .on("click", (event) => {
-                event.stopPropagation(); // 阻止事件冒泡
-                showLanguageInfo(lang);
-            });
+            
        });
   
       // Add the points
@@ -260,12 +254,7 @@ function scatterplot() {
           .style("stroke", "black")
           .style("stroke-width", 0.5);
   
-      // Highlight the selected points
-      selectableElements
-          .filter(d => selectedData.includes(d))
-          .classed("selected", true)
-          .style("stroke", "red")
-          .style("stroke-width", 2); // Adjust stroke-width as desired
+      
     };
   
     return chart;
