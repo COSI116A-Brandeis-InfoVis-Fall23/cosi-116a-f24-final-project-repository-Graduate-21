@@ -20,9 +20,9 @@
       .selectionDispatcher(d3.dispatch(dispatchString))
       ("#scatterplot", data);
     
-    let tableData = table()
+    let tableData = table_scatterplot()
       .selectionDispatcher(d3.dispatch(dispatchString))
-      ("#table", data);
+      ("#table_scatterplot", data);
     
     spRuntimeMemory.selectionDispatcher().on(dispatchString, function(selectedData) {
         tableData.updateSelection(selectedData);

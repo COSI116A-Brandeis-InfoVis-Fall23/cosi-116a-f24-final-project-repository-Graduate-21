@@ -55,10 +55,16 @@ function scatterplot() {
           .attr("class", "axisLabel")
           .attr("transform", "translate(" + (width - 50) + ",-10)")
           .text(xLabelText);
+      // rotate X axis label
+      xAxis.selectAll("text")
+        .attr("transform", "rotate(-45)")
+        .style("text-anchor", "end");
         
       let yAxis = svg.append("g")
-          .call(d3.axisLeft(yScale))
-        .append("text")
+        .call(d3.axisLeft(yScale)
+          .tickValues(yScale.ticks().filter(d => d % 2 === 0)) // 规则间隔显示刻度
+          )
+          .append("text")
           .attr("class", "axisLabel")
           .attr("transform", "translate(" + yLabelOffsetPx + ", -12)")
           .text(yLabelText);
@@ -75,26 +81,33 @@ function scatterplot() {
       const languages = [...new Set(data.map(d => d.source.trim()))]; // Extract unique programming languages
   
       languages.forEach((lang, i) => {
-          // Create circle as legends
+        // 添加圆圈表示颜色
         legend.append("circle")
-          .attr("cx", 0) 
-          .attr("cy", i * 10)
-          .attr("r", 3) 
-          .style("fill", colorScale(lang)) 
-          .style("stroke", "black") 
-          .style("stroke-width", 0.5);
-        
-          // align the legend with text
+            .attr("cx", 0)
+            .attr("cy", i * 12)
+            .attr("r", 5)
+            .style("fill", colorScale(lang))
+            .style("stroke", "black")
+            .style("stroke-width", 0.5)
+            .style("cursor", "pointer")
+            .on("click", (event) => {
+                event.stopPropagation(); // 阻止事件冒泡
+                showLanguageInfo(lang);
+            });
+    
+        // 添加文本标签
         legend.append("text")
-          .attr("x", 15) 
-          .attr("y", i * 10 ) 
-          .text(lang) // Programming Language
-          
-          .style("font-size", "6px") 
-          .style("fill", "black")
-          .style("alignment-baseline", "middle"); 
-          
-        });
+            .attr("x", 15)
+            .attr("y", i * 12 + 4)
+            .text(lang)
+            .style("font-size", "10px")
+            .style("fill", "black")
+            .style("cursor", "pointer")
+            .on("click", (event) => {
+                event.stopPropagation(); // 阻止事件冒泡
+                showLanguageInfo(lang);
+            });
+       });
   
       // Add the points
       let points = svg.append("g")
@@ -122,12 +135,12 @@ function scatterplot() {
       // Highlight points when brushed
       function brush(g) {
         const brush = d3.brush() // Create a 2D interactive brush
-          .on("start brush", highlight) // When the brush starts/continues do...
-          .on("end", brushEnd) // When the brush ends do...
-          .extent([
-            [-margin.left, -margin.bottom],
-            [width + margin.right, height + margin.top]
-          ]);
+            .on("start brush", highlight) // When the brush starts/continues do...
+            .on("end", brushEnd) // When the brush ends do...
+            .extent([
+                [0-5, 0-5],
+                [width+5, height+5]
+            ]);
           
         ourBrush = brush;
   
@@ -153,12 +166,19 @@ function scatterplot() {
           dispatcher.call(dispatchString, this, svg.selectAll(".selected").data());
         }
         
-        function brushEnd(){
-          // We don't want infinite recursion
-          if(d3.event.sourceEvent.type!="end"){
-            d3.select(this).call(brush.move, null);
-          }         
-        }
+        function brushEnd() {
+          // If no selection (clicked on empty space), reset highlights
+          if (d3.event.selection === null) {
+              selectableElements
+                  .classed("selected", false) // Remove "selected" class from all points
+                  .style("stroke", "black")  // Reset stroke color
+                  .style("stroke-width", 0.5); // Reset stroke width
+              
+              // Notify other visualizations to clear their selections
+              let dispatchString = Object.getOwnPropertyNames(dispatcher._)[0];
+              dispatcher.call(dispatchString, this, []);
+          }
+      }
       }
   
       return chart;
@@ -234,11 +254,18 @@ function scatterplot() {
     chart.updateSelection = function (selectedData) {
       if (!arguments.length) return;
   
-      // Select an element if its datum was selected
-      selectableElements.classed("selected", d => {
-        return selectedData.includes(d)
-      });
+      // Reset all points to default style
+      selectableElements
+          .classed("selected", false)
+          .style("stroke", "black")
+          .style("stroke-width", 0.5);
   
+      // Highlight the selected points
+      selectableElements
+          .filter(d => selectedData.includes(d))
+          .classed("selected", true)
+          .style("stroke", "red")
+          .style("stroke-width", 2); // Adjust stroke-width as desired
     };
   
     return chart;
