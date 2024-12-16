@@ -4,7 +4,7 @@ function scatterplot() {
         top: 60,
         left: 80,
         right: 150,
-        bottom: 20
+        bottom: 30
       },
       width = 500 - margin.left - margin.right,
       height = 300 - margin.top - margin.bottom,

@@ -22,7 +22,7 @@
     
     let tableChart = table_scatterplot()
       .selectionDispatcher(d3.dispatch(dispatchString))
-      ("#table_scatterplot", data);
+      ("#table-scatterplot-container", data);
     
     scatterplotChart.selectionDispatcher().on(dispatchString, function(selectedData) {
         tableChart.updateSelection(selectedData);
