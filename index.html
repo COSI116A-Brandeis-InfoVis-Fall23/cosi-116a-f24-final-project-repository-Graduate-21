@@ -71,7 +71,7 @@
     <div id="table-container"></div>
 
 
-  
+
 
     <div class="container">
       <div class="map-holder"></div>
@@ -91,7 +91,7 @@
           preserveAspectRatio="xMidYMid meet" class="marks" viewBox="0 0 600 345" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         </svg>
       </div>
-  
+
   <div class="vis-holder">
     <h2 class="scatterplot-title">Programming Languages Performance</h2>
     <div class="scatterplot-holder" id="scatterplot"></div>
@@ -109,11 +109,8 @@
 
     <p><em>Embedded MP4 demo video using the HTML5 &lt;video&gt; tag. For example, this screen recording Prof. Cody Dunne made of Mike Bostock's flexible transitions in D3 slide:</em></p>
 
-    <video controls width="100%">
-      <source src="http://www.ccs.neu.edu/home/cody/courses/shared/d3-flexible-transitions.mp4" type="video/mp4">
-      <p>Your browser doesn't support HTML5 video. Here is
-       a <a href="http://www.ccs.neu.edu/home/cody/courses/shared/d3-flexible-transitions.mp4">link to the video</a> instead.</p>
-    </video>
+
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/wvZNysUKHug?si=OOU8SDcZqjuyYubK" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
     <h1>Visualization explanation</h1>
 
@@ -126,8 +123,8 @@
 
     <p><em>
       The world map displays countries colored based on data availability. When a user clicks on a country, the bar chart below updates to show the percentage of developers in that region using different programming languages. When hovering over a bar, the map dynamically displays a heatmap that represents the popularity of the corresponding programming language across different regions. The interactive nature of the map and charts allows users to explore the data for each region, offering insights into global programming language trends.</em></p>
-    <p><em>This visualization integrates a scatterplot and a table to provide an interactive exploration of programming language trends. The scatterplot visualizes the relationship between runtime and memory usage, 
-      using color-coded points to represent different languages. The table complements this by listing detailed information, such as language type and average CPU load, which users can sort dynamically. Through brushing and linking, users can select data points on the scatterplot to highlight corresponding rows in the table, 
+    <p><em>This visualization integrates a scatterplot and a table to provide an interactive exploration of programming language trends. The scatterplot visualizes the relationship between runtime and memory usage,
+      using color-coded points to represent different languages. The table complements this by listing detailed information, such as language type and average CPU load, which users can sort dynamically. Through brushing and linking, users can select data points on the scatterplot to highlight corresponding rows in the table,
       and vice versa, enabling synchronized and intuitive data exploration.</em></p>
     <p><em>Presentation slides with screenshots yet to be made.</em></p>
 
@@ -143,7 +140,7 @@
     <p><em>The data for world map: <strong>programming_languages_popularity_by_region.csv.</strong></em></p>
     <p><em>It includes data on regions (category) and the percentage values for each programming language in those regions. The organized data is then read to generate the visualization.</em></p>
     <p><em>The data for Scatterplot and Table:<strong> Scatterplot_data.json.</strong></em></p>
-    <p><em>The dataset consists of programming language performance metrics, including runtime, memory usage, source language, and average CPU load. Each record corresponds to a specific data point 
+    <p><em>The dataset consists of programming language performance metrics, including runtime, memory usage, source language, and average CPU load. Each record corresponds to a specific data point
       representing a programming language's performance characteristics.</em></p>
 
     <h1>Task Analysis</h1>
@@ -155,13 +152,13 @@
       By using encoding on categorized languages and date, the chart allows viewers to compare values effectively and complete the task1 well. And the selection feature of the table below allows viewers to better choose specific data to display, making it easier to compare and highlight the differences in data size for a smaller number of languages.
       </em></p>
     <p><em><strong>Task2: Compare performance of programming languages for different tasks.</strong></em></p>
-    
-    <p><em>Task2:The scatterplot visually represents relationships between runtime (x-axis) and memory usage (y-axis), with point sizes encoding average CPU load. 
+
+    <p><em>Task2:The scatterplot visually represents relationships between runtime (x-axis) and memory usage (y-axis), with point sizes encoding average CPU load.
         The clear separation of points and their color-coded representation by language makes it intuitive to compare multiple languages at a glance. By selecting regions of interest using the brushing feature, users can isolate high-performing or outlier languages for specific tasks.
-        The table complements the scatterplot by displaying detailed data, such as language type and other performance metrics, in a sortable format. Sorting and filtering features enable users to refine their analysis, 
+        The table complements the scatterplot by displaying detailed data, such as language type and other performance metrics, in a sortable format. Sorting and filtering features enable users to refine their analysis,
         focusing on relevant languages or metrics.</em></p>
-        
-    <p><em>The linking functionality between the scatterplot and table ensures synchronized updates—brushing a region in the scatterplot highlights corresponding rows in the table, and vice versa. This seamless interaction allows users to analyze specific subsets of languages, 
+
+    <p><em>The linking functionality between the scatterplot and table ensures synchronized updates—brushing a region in the scatterplot highlights corresponding rows in the table, and vice versa. This seamless interaction allows users to analyze specific subsets of languages,
         compare their performance, and identify the best options for different computational needs.
         The combination of scatterplot encoding and table interaction provides a powerful tool to evaluate trade-offs in runtime, memory usage, and CPU load,
         effectively addressing the task of comparing programming language performance across various scenarios.</em></p>
@@ -171,9 +168,9 @@
 
     <!--<p><em>Expectation: Clearly describes domain tasks, processes, goals and abstract tasks for domain problems.</em></p>-->
     <p><em>Sketches and design choices to justify final visualization.</em></p>
-    
-    
-    
+
+
+
     <h1>Design Process</h1>
 
     <p><em>Sketches and design choices to justify final visualization.</em></p>
@@ -188,8 +185,8 @@
 
     <img src="/images/scatter2.png" alt="scatterSketches" width="800" height="600">
     <img src="/images/scatter3.png" alt="scatterSketches" width="800" height="600">
-    <p><em>The two images above shows the designs of scatter plot. In the initial design phase, I envisioned incorporating textual descriptions to highlight the unique features of each programming language directly within the visualization. 
-      However, due to time constraints and implementation complexity, I decided to prioritize enhancing the interactive and filtering capabilities of the charts. By focusing on features like brushing, dynamic linking, and sorting, users can now explore the data in a more intuitive and flexible way. 
+    <p><em>The two images above shows the designs of scatter plot. In the initial design phase, I envisioned incorporating textual descriptions to highlight the unique features of each programming language directly within the visualization.
+      However, due to time constraints and implementation complexity, I decided to prioritize enhancing the interactive and filtering capabilities of the charts. By focusing on features like brushing, dynamic linking, and sorting, users can now explore the data in a more intuitive and flexible way.
       This approach not only improves the usability of the scatterplot and table but also allows users to analyze performance metrics such as runtime, memory usage, and CPU load for specific programming languages in greater detail.</em></p>
 
     <img src="/images/map2.png" alt="mapSketches" width="600" height="600">
@@ -202,7 +199,7 @@
 
 
     <h1>Conclusion</h1>
-    
+
 
     <h3>Summary of Work Completed</h3>
     <p>
@@ -276,6 +273,7 @@
       <li><a href="https://observablehq.com/@d3/focus-context?collection=@d3/d3-brush">Focus + Context</a> by D3.</li>
       <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener">EventTarget: addEventListener() method</a> by mozilla.org</li>
       <li><a href="https://chatgpt.com/">ChatGPT</a> on problem caused by different d3 version, data linking and addEventListener</li>
+      <li><a href="https://chatgpt.com/">ChatGPT</a></li>
       <li><a href="https://d3-graph-gallery.com/backgroundmap">Background map</a></li>
     </ul>
 
