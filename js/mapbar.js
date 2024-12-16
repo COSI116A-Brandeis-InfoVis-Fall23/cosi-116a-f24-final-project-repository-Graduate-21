@@ -60,6 +60,16 @@ function updateBarChart(regionData) {
         .append("rect")
         .attr("class", "bar")
         .merge(bars) // Update existing bars
+        .on("mouseover", function(event, d) {
+
+            bars.attr("fill", "#69b3a2"); 
+            d3.select(this).attr("fill", "goldenrod"); 
+            updateMapForLanguage(d);
+        })
+        .on("mouseout", function(event, d) {
+            d3.select(this).attr("fill", "#69b3a2");
+            updateMapToDefault();
+        })
         .transition()
         .duration(500) // Animation duration
         .attr("x", d => xScalee(d.language)) // X position based on language

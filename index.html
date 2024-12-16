@@ -74,12 +74,12 @@
       preserveAspectRatio="xMidYMid meet" class="marks" viewBox="0 0 821 520" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     </svg>
     
-
-
-
     <div class="container">
       <div class="map-holder"></div>
         <h2 class="map-title">Programming Languages Popularity by Region</h2>
+        <svg id="heat"
+          preserveAspectRatio="xMidYMid meet" class="marks" viewBox="0 0 2000 50" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        </svg>
         <svg id="map-svg"
           preserveAspectRatio="xMidYMid meet" class="marks" viewBox="0 0 821 520" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         </svg>
@@ -119,8 +119,7 @@
       .</em></p>
 
     <p><em>
-      The world map displays countries colored based on data availability. 
-      When a user clicks on a country, the bar chart below updates to show the percentage of developers in that region using different programming languages. The interactive nature of the map and charts allows users to explore the data for each region, offering insights into global programming language trends.</em></p>
+      The world map displays countries colored based on data availability. When a user clicks on a country, the bar chart below updates to show the percentage of developers in that region using different programming languages. When hovering over a bar, the map dynamically displays a heatmap that represents the popularity of the corresponding programming language across different regions. The interactive nature of the map and charts allows users to explore the data for each region, offering insights into global programming language trends.</em></p>
 
     <p><em>Presentation slides with screenshots yet to be made.</em></p>
 
@@ -151,7 +150,7 @@
       By using encoding on categorized languages and date, the chart allows viewers to compare values effectively and complete the task1 well. And the selection feature of the table below allows viewers to better choose specific data to display, making it easier to compare and highlight the differences in data size for a smaller number of languages.
       </em></p>
     <p><em>Task2: </em></p>
-    <p><em>Task3: The processes involved in achieving the goal include browsing the map to select a country, then exploring the accompanying charts that dynamically update based on user selection. The abstract tasks supported by this visualization include comparison of language popularity across regions, exploration of trends within a specific country, and discovery of regional differences that may not be immediately evident without the use of interactive visual tools.</em></p>
+    <p><em>Task3: The processes involved in achieving the goal include browsing the map to select a country, then exploring the accompanying charts that dynamically update based on user selection. Additionally, hovering over a bar in the chart triggers a heatmap on the map, visually representing the popularity of the selected programming language across different regions. The abstract tasks supported by this visualization include comparison of language popularity across regions, exploration of trends within a specific country, discovery of regional differences that may not be immediately evident without the use of interactive visual tools, and analysis of language-specific global distributions.</em></p>
 
     <h1>Design Process</h1>
 
@@ -203,5 +202,6 @@
   <script src="js/table.js"></script>
   <script src="js/mapbar.js"></script>
   <script src="js/map.js"></script>
+  <script src="js/heatmap.js"></script>
 </body>
 </html>
