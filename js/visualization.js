@@ -11,7 +11,7 @@
     })
     const dispatchString = "selectionUpdated";
 
-    let spRuntimeMemory = scatterplot()
+    let scatterplotChart = scatterplot()
       .x(d => d.secs) // X-axis: runtime in seconds
       .xLabel("Runtime (secs)")
       .y(d => d.mem) // Y-axis: memory usage
@@ -20,16 +20,17 @@
       .selectionDispatcher(d3.dispatch(dispatchString))
       ("#scatterplot", data);
     
-    let tableData = table_scatterplot()
+    let tableChart = table_scatterplot()
       .selectionDispatcher(d3.dispatch(dispatchString))
       ("#table_scatterplot", data);
     
-    spRuntimeMemory.selectionDispatcher().on(dispatchString, function(selectedData) {
-        tableData.updateSelection(selectedData);
-      });
-    tableData.selectionDispatcher().on(dispatchString, function(selectedData) {
-        spRuntimeMemory.updateSelection(selectedData); 
-      });
+    scatterplotChart.selectionDispatcher().on(dispatchString, function(selectedData) {
+        tableChart.updateSelection(selectedData);
+    });
+
+    tableChart.selectionDispatcher().on(dispatchString, function(selectedData) {
+        scatterplotChart.updateSelection(selectedData);
+    });
     });
 
 
