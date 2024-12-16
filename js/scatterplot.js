@@ -131,10 +131,7 @@ function scatterplot() {
         const brush = d3.brush() // Create a 2D interactive brush
             .on("start brush", highlight) // When the brush starts/continues do...
             .on("end", brushEnd) // When the brush ends do...
-            .extent([
-              [-margin.left, -margin.bottom],
-              [width + margin.right, height + margin.top]
-            ]);
+            
         ourBrush = brush;
   
         g.call(brush); // Adds the brush to this element
@@ -253,7 +250,12 @@ function scatterplot() {
           .style("stroke", "black")
           .style("stroke-width", 0.5);
   
-      
+      // Highlight the selected points
+      selectableElements
+          .filter(d => selectedData.includes(d))
+          .classed("selected", true)
+          .style("stroke", "red")
+          .style("stroke-width", 2); // Adjust stroke-width as desired
     };
   
     return chart;
